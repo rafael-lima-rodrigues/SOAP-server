@@ -47,7 +47,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     }
 
     //Metodo intercepta todas as solicitação e verifica a segurança
-    @Bean
+   /* @Bean
     public XwsSecurityInterceptor securityInterceptor() {
         XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
         securityInterceptor.setCallbackHandler(callbackHandler());
@@ -66,6 +66,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         interceptors.add(securityInterceptor());
     }
-
+*/
 }
 
