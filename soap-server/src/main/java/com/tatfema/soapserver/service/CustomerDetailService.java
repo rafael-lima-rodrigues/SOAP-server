@@ -1,7 +1,9 @@
 package com.tatfema.soapserver.service;
 
 import com.tatfema.soapserver.bean.Customer;
+import com.tatfema.soapserver.bean.CustomerRepository;
 import com.tatfema.soapserver.helper.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,22 +13,11 @@ import java.util.Optional;
 @Component
 public class CustomerDetailService {
 
-    private static List<Customer> customers = new ArrayList<>();
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    static {
-        Customer customer1 = new Customer(1, "Bob", "999999", "bob@gmail.com");
-        customers.add(customer1);
-        Customer customer2 = new Customer(2, "Jose", "88888", "jose@gmail.com");
-        customers.add(customer2);
-        Customer customer3 = new Customer(3, "Maria", "7777777", "maria@gmail.com");
-        customers.add(customer3);
-        Customer customer4 = new Customer(4, "Joao", "6666666", "joao@gmail.com");
-        customers.add(customer4);
-    }
-
-    public Customer findById(int id) {
-        Optional<Customer> customerOptional = customers.stream()
-                .filter(customer -> customer.getId() == id).findAny();
+    public Customer findById(Integer id) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isPresent()) {
             return customerOptional.get();
         }
@@ -34,15 +25,25 @@ public class CustomerDetailService {
     }
 
     public List<Customer> findAll() {
-        return customers;
+        return customerRepository.findAll();
     }
 
-    public Status deleteById(int id) {
-        Optional<Customer> customerOptional = customers.stream().filter(customer -> customer.getId() ==id).findAny();
-        if(customerOptional.isPresent()){
-            customers.remove(customerOptional.get());
+    public Status deleteById(Integer id) {
+        try {
+            customerRepository.deleteById(id);
             return Status.SUCCESS;
+        } catch (Exception e) {
+            return Status.FAILURE;
         }
-        return Status.FAILURE;
+    }
+
+    public Status isert(Customer customer) {
+        try {
+            customerRepository.save(customer);
+            return Status.SUCCESS;
+        } catch (Exception e) {
+            return Status.FAILURE;
+
+        }
     }
 }
