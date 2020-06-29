@@ -40,10 +40,19 @@ public class CustomerDetailService {
     public Status isert(Customer customer) {
         try {
             customerRepository.save(customer);
+
             return Status.SUCCESS;
         } catch (Exception e) {
             return Status.FAILURE;
+        }
+    }
 
+    public Status update(Customer customer) {
+        try {
+            customerRepository.save(customer);
+            return Status.SUCCESS;
+        } catch (Exception e) {
+            return Status.FAILURE;
         }
     }
 }

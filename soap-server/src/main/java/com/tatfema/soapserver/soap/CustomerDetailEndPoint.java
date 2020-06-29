@@ -2,6 +2,7 @@ package com.tatfema.soapserver.soap;
 
 import java.util.List;
 
+import br.com.tatfema.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -11,17 +12,6 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.tatfema.soapserver.bean.Customer;
 import com.tatfema.soapserver.service.CustomerDetailService;
 import com.tatfema.soapserver.soap.exception.CustomerNotFoundException;
-
-import br.com.tatfema.CustomerDetail;
-import br.com.tatfema.DeleteCustomerRequest;
-import br.com.tatfema.DeleteCustomerResponse;
-import br.com.tatfema.GetAllCustomerDetailRequest;
-import br.com.tatfema.GetAllCustomerDetailResponse;
-import br.com.tatfema.GetCustomerDetailRequest;
-import br.com.tatfema.GetCustomerDetailResponse;
-import br.com.tatfema.InsertCustomerResponse;
-import br.com.tatfema.InsertCustomerlRequest;
-import br.com.tatfema.Status;
 
 @Endpoint
 public class CustomerDetailEndPoint {
@@ -86,9 +76,9 @@ public class CustomerDetailEndPoint {
 		return Status.SUCESS;
 	}
 
-	@PayloadRoot(namespace = "http://tatfema.com.br", localPart = "InsertCustomerlRequest")
+	@PayloadRoot(namespace = "http://tatfema.com.br", localPart = "InsertCustomerRequest")
 	@ResponsePayload
-	public InsertCustomerResponse insertCustomerRequest(@RequestPayload InsertCustomerlRequest request) {
+	public InsertCustomerResponse insertCustomerRequest(@RequestPayload InsertCustomerRequest request) {
 		InsertCustomerResponse response = new InsertCustomerResponse();
 		response.setStatus(convertStatusSoap(service.isert(convertCustomer(request.getCustomerDetail()))));
 		return response;
@@ -98,5 +88,15 @@ public class CustomerDetailEndPoint {
 		return new Customer(customerDetail.getId(), customerDetail.getName(), customerDetail.getPhone(),
 				customerDetail.getEmail());
 	}
+
+	@PayloadRoot(namespace = "http://tatfema.com.br", localPart = "UpdateCustomerRequest")
+	@ResponsePayload
+	public UpdateCustomerResponse updateCustomerRequest(@RequestPayload UpdateCustomerRequest request) {
+		UpdateCustomerResponse response = new UpdateCustomerResponse();
+		response.setStatus(convertStatusSoap(service.update(convertCustomer(request.getCustomerDetail()))));
+		return response;
+	}
+
+
 
 }

@@ -3,7 +3,7 @@
 	targetNamespace="http://tatfema.com.br"
 	xmlns:tns="http://tatfema.com.br" elementFormDefault="qualified">
 
-	<xs:element name="InsertCustomerlRequest">
+	<xs:element name="InsertCustomerRequest">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="CustomerDetail"
@@ -62,7 +62,24 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
+
+	<xs:element name="UpdateCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CustomerDetail"
+							type="tns:CustomerDetail" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="UpdateCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="status" type="tns:Status"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
 	<xs:simpleType name="Status">
 	<xs:restriction base="xs:string" >
 	<xs:enumeration value="SUCCESS"></xs:enumeration>

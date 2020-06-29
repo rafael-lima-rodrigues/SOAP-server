@@ -4,7 +4,7 @@
            xmlns:tns="http://tatfema.com.br"
            elementFormDefault="qualified">
            
-           <xs:element name="InsertCustomerlRequest">
+           <xs:element name="InsertCustomerRequest">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="CustomerDetail"
@@ -60,6 +60,23 @@
     </xs:element>
 
     <xs:element name="DeleteCustomerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:Status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateCustomerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CustomerDetail"
+                            type="tns:CustomerDetail" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateCustomerResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" type="tns:Status"/>
